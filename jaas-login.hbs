@@ -1,0 +1,19 @@
+<div class="home" >
+    <div class="login-options" style="margin-top: 10%;">
+            <a href="auth" style="text-decoration: none;color:antiquewhite;"><h3 style="cursor: pointer; margin-top: 15%;">Duo</h3></a>
+        </div>
+    <div class="login-options" {{on 'click' this.saml }} style="margin-top: 10%;">
+            <h3 style="cursor: pointer; margin-top: 15%;">SAML</h3>
+        </div>
+        <div class="login-options" style="margin-top: 10%;">
+            <h3 style="margin-top: 15%;">
+                <LinkTo @route="login" style="text-decoration: none;color:antiquewhite;">
+                    Mobile
+                </LinkTo>
+            </h3>
+        </div>
+</div>
+<form id="device" action="saml" method="POST">
+	<span id="hidden"></span>
+</form>
+    

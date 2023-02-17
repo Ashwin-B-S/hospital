@@ -1,0 +1,45 @@
+    <div class="Log-out">
+        <button class="button" type="button" {{on 'click' this.logout }}>Log Out</button>
+    </div>
+    
+    <div class = "head" id = "adminname"><h1>Hello Mr.{{@model.name}} !</h1></div>
+		
+	<div class = "patient_list" >
+		<h1 style="margin-bottom:15px;" >Covid Patients</h1>
+            {{#each @model.Patients as |post|}}
+                {{#if post.hasCovid}}
+                    <table><th>Name : {{post.name}}</th><th>Age : {{post.age}}</th><th>Condition : {{post.condition}}</th></table>
+                {{/if}}
+            {{/each}}
+		<span id="pat"></span>
+	</div>
+	<div class = "patient_list">
+		<h1 style="margin-bottom:15px;" >General Patients</h1>
+        {{#each @model.Patients as |post|}}
+                {{#unless post.hasCovid}}
+                    <table><th>Name : {{post.name}}</th><th>Age : {{post.age}}</th><th>Condition : {{post.condition}}</th></table>
+                {{/unless}}
+        {{/each}}
+	</div>
+		
+	<div class="patient_list">
+		<h1 style="margin-bottom:15px;" >Doctors</h1>
+        {{#each @model.Doctors as |post|}}
+		    <div class = "table_content"><div class="content">Name : Dr.{{post.name}}</div><div class="content">Specialization : {{post.spec}}</div><div class="content">Experience : {{post.exp}}</div></div>
+         {{/each}}
+         <div class="table_contents">
+			<input class="btn" style="margin:auto;"value="Add Doctor" {{on 'click' this.addDoctor}}/>
+		</div>
+	</div>
+
+	<div class="patient_list">
+		<input class="btn" style="margin:auto;"value="Add Admin" {{on 'click' this.addAdmin}}/>
+	</div>
+	
+	<div class="userpassword">
+        {{#if @model.hasUsername}}
+            <LinkTo @route="manageAccount" style="text-decoration: none;color:black;font-size:larger">Set Username & Password</LinkTo>
+        {{else}}
+            <LinkTo @route="manageAccount" style="text-decoration: none;color:black;font-size:larger">Change Password</LinkTo>
+        {{/if}}
+	</div>

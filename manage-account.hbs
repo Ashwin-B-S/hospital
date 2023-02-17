@@ -1,0 +1,25 @@
+<div class="home-container">
+    <form action="changepassword" method="post" id="newlogin">
+        {{#if @model.hasUsername}}
+             <h2>{{@model.Username}}</h2>
+        {{else}}
+            <h2>Username</h2>
+            <div class="line">
+                <input type="text" class="box" required name="username" id="username" placeholder="enter username here"/>
+            </div>
+        {{/if}}
+        <h2>New Password</h2>
+        <div class="line">
+            <input type="password" class="box" required name="newpass" id="newpass" placeholder="enter password here"/>
+        </div>
+        <h2>Confirm Password</h2>
+        <div class="line">
+            <input type="password" class="box" required name="confirmpass" id="confirmpass" placeholder="re-enter password here"/>
+        </div>
+        {{#if @model.hasUsername}}
+            <button class="button" style="margin-bottom:5%;" type="submit" {{on "click" this.changepassword }}>Change Password </button> 
+        {{else}}
+            <input class="btn" style="margin-bottom:5%;" {{on "click" (fn this.setuser @model.Username) }}>Set Username
+        {{/if}}
+    </form>
+</div>

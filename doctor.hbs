@@ -1,0 +1,80 @@
+<div class="Log-out">
+    <button class="button" type="button" {{on 'click' this.logout }}>Log Out</button>
+</div>
+
+<div class = "Dr-name">
+	<h1>Welcome Dr.{{@model.name}} </h1>
+</div>
+		
+<div class = "patient-list">
+	<h3>Covid patients</h3>
+    {{#each @model.patients as |post|}}
+    {{#if post.hasCovid}}
+    <table>
+        <th>{{post.name}}</th>
+        <th>{{post.disease}}</th>
+        <th>{{post.condition}}</th>
+    </table>
+    {{/if}}
+    {{/each}}
+</div>
+
+<div class = "patient-list">
+	<h3>General Patients</h3>
+    {{#each @model.patients as |post|}}
+    {{#unless post.hasCovid}}
+    <table>
+        <th>{{post.name}}</th>
+        <th>{{post.disease}}</th>
+        <th>{{post.condition}}</th>
+    </table>
+    {{/unless}}
+    {{/each}}
+</div>
+
+<div class = "patient-list" id="Request">
+    {{#if @model.hasRequests}}
+    <h3>Request</h3>
+	    {{#each @model.requests as |post|}}
+            <table>
+                <td>{{post.name}}</td>
+                <td>{{post.disease}}</td>
+                <td>{{post.age}}</td>
+                <td {{on "click" (fn this.accept post.id @model.id)}}><h4>Accept</h4></td>
+                <td {{on "click" (fn this.reject post.id )}}><h5>Reject</h5></td>
+            </table>
+        {{/each}}
+    {{else}}
+        <h2>No Requets</h2>
+    {{/if}}
+</div>
+		
+<div class = "set-change-pass">
+	{{#if @model.hasUsername}}
+        <LinkTo @route="manageAccount" style="text-decoration: none;color:white;font-size:larger">Set Username & Password</LinkTo>
+    {{else}}
+        <LinkTo @route="manageAccount" style="text-decoration: none;color:white;font-size:larger">Change Password</LinkTo>
+    {{/if}}
+</div>
+    
+    <div class="chat" {{on "mouseover" (fn this.webconnect @model.id)}}>
+        <div class="contact">
+            {{#each @model.patients as |post|}}
+                <table>
+                    <th {{on "click" (fn this.chat post.id post.name)}} >{{post.name}}</th>
+               </table>
+            {{/each}}
+         </div>
+         <div class="name-bar" id="name"></div>
+        <div class="chatarea">
+			<div class="chat-content" id="content"></div>		
+			<div class = "text" id="list">	
+				<input type = "text" id="txt" class="chat-txt" placeholder="type your message here...." />
+				<button class ="button" type="button" {{on "click" this.sendText}}>Send</button>
+			</div>
+		</div>
+    </div>
+
+    <form action="approve" method="post" id="approve">
+        <span id="hidden"></span>
+    </form>

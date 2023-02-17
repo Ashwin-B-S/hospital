@@ -1,0 +1,71 @@
+<div class="Log-out">
+    <button class="button" type="button" {{on 'click' this.logout }}>Log Out</button>
+</div>
+
+<div class="Ptient-Details" {{on "mouseover" (fn this.webconnect @model.id @model.doctor_id)}}>
+	<div class = "report" id="PatRec">
+        <h1>Patient Report</h1>
+        <div class="content">Name : {{@model.name}}</div>
+        <div class="content">Age : {{@model.age}}</div>
+        <div class="content">Patient ID : 8 </div>
+        <div class="content">Disease : {{@model.disease}}</div>
+        <div class="content">Condition : {{@model.condition}}</div>        
+        {{#if @model.hasUsername}}
+            <div class="content1" {{on 'click' this.manage }}>Change Password</div>
+        {{else}}
+            <div class="content1" {{on 'click' this.manage }}>Set Username & Password</div>
+        {{/if}}
+	</div>
+		
+	<div class = "doctor" id="DocInfo" {{on "mouseover" (fn this.webconnect @model.id @model.doctor_id)}}>
+        <h1>Doctor Details</h1>
+        <div class="content">Name : Dr.{{@model.docname}}</div>
+        <div class="content">Age : {{@model.docage}}</div>
+        <div class="content">Doctor ID : {{@model.doctor_id}}</div>
+        <div class="content">Mobile : {{@model.number}}</div>
+        <div class="content">Specialization : {{@model.docspec}}</div>
+        <div class="content">Experiance : {{@model.docexp}}</div>
+	</div>
+</div>
+	
+<div class="Ptient-Request">
+	<div class="reqbox" id = "Req">
+        {{#if @model.hasRequest}}
+            <h1>Request is yet to be approved</h1>
+        {{else}}
+            {{#each @model.others as |post|}}
+                <div class="doctor-list" {{on 'click' (fn this.request post.id @model.doctor_id @model.id) }}>
+                    <h3><p><a style="color:black;">Name : </a>Dr.{{post.name}} </p></h3>
+                    <h3><p><a style="color:black;">Specialization : </a>{{post.spec}} </p></h3>
+                    <h3><p><a style="color:black;">Experiance : </a>{{post.exp}} </p></h3>
+                </div>
+            {{/each}}
+        {{/if}}
+	</div>
+</div>
+	
+<div class="Ptient-Request">
+	<div class="device" id = "trust" style="cursor: pointer;">
+        {{#if @model.hasdevice}}
+            {{#each @model.device as |post|}}
+                <h3>{{post.name}}</h3>
+                <button class="button" type="button" {{on 'click' (fn this.remove post.s_no) }}>remove</button>
+            {{/each}}
+        {{else}}
+           <div class="demo" {{on 'click' this.add }}> <h3>Add trusted device</h3></div>
+        {{/if}}
+	</div>
+</div>
+
+<div class="patient-chat" {{on "mouseover" (fn this.webconnect @model.id @model.doctor_id)}}>
+        <div class="patient-chatarea" id="content">		
+		</div>
+        <div class = "text-bar" id="list">	
+				<input type = "text" id="txt" class="chat-txt" placeholder="type your message here...." />
+				<button class ="chat-button" type="button" {{on "click" (fn this.sendText @model.id @model.doctor_id)}}>Send</button>
+		</div>
+    </div>
+
+    <form action="request" method="post" id="request">
+        <span id="hidden"></span>
+    </form>
